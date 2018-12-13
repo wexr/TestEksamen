@@ -53,8 +53,8 @@ app.post('/opret', function(req, res){
             console.log("connected"); // Logger hvis connected.
           });
 
-          con.query("insert into bruger(id, fornavn, efternavn, kontonr, instaende, rente, brugernavn, password) values("+req.body.id+", "+req.body.fornavn+", "+req.body.efternavn+", "+req.body.kontonr+", '"+req.body.indestaende+"', '"+req.body.rente+"', '"+req.body.brugernavn+"', '"+req.body.password+"');", 
-          function (err, result) { //Vælg alt fra table "ikeapare"
+          con.query("insert into bruger(id, fornavn, efternavn, kontonr, indestaende, rente, brugernavn, password) values("+req.body.id+", '"+req.body.fornavn+"', '"+req.body.efternavn+"', "+req.body.kontonr+", "+req.body.indestaende+", "+req.body.rente+", '"+req.body.brugernavn+"', '"+req.body.password+"');", 
+          function (err, result) { //Vælg alt fra table "bruger"
           if (err) throw err;//Tjekker for fejl, throw errors.
           console.log("selected *"); //Logger alt der er selected.
         res.send("result fdsfsdg"); //Det er det den sender når man går ind på /opret

@@ -2,6 +2,9 @@
 var app = require('express')();//Sætter express til at være app.
 var http = require('http').Server(app);//Den der åbner serveren.
 bodyParser = require('body-parser'); //Når der skal arbejdes med JSON objekter Parser det om til læselige json objekter fra servere.
+var cors = require('cors')
+
+app.use(cors()) // Mulig løsning til cors problem ved node server.
 
 //2.  Husk at bruge bodyparser til at post request.
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,13 +31,13 @@ app.get('/hent', function(req,res){
     con.connect(function(err) {  
         if (err) throw err; //Tjekker om der er nogle errors, throw.
         console.log("Connected!"); // Logger hvis connected.
-        con.query("use testeksamen;", function (err, result) { //Brug schema fra mysql db.
+        con.query("use becbank;", function (err, result) { //Brug schema fra mysql db.
             if (err) throw err; //Tjekker for fejl, throw errors.
-            console.log("connected"); // Logger hvis connected.
+            console.log("connected to MySQL DB"); // Logger hvis connected.
           });
-        con.query("select * from ikeapaere", function (err, result) { //Vælg alt fra table "ikeapare"
+        con.query("select * from bruger", function (err, result) { //Vælg alt fra table "bruger"
           if (err) throw err;//Tjekker for fejl, throw errors.
-          console.log("selected *"); //Logger alt der er selected.
+          console.log("selected * from table"); //Logger alt der er selected.
         res.send(result); //Det er det den sender når man går ind på /hent
         });
       });
@@ -45,12 +48,12 @@ app.post('/opret', function(req, res){
     con.connect(function(err) {  
         if (err) throw err; //Tjekker om der er nogle errors, throw.
         console.log("Connected!"); // Logger hvis connected.
-        con.query("use testeksamen;", function (err, result) { //Brug schema fra mysql db.
+        con.query("use becbank;", function (err, result) { //Brug schema fra mysql db.
             if (err) throw err; //Tjekker for fejl, throw errors.
             console.log("connected"); // Logger hvis connected.
           });
 
-          con.query("insert into ikeapaere(onoff, normielStrom, aktuelStrom, lysintensitet, farve, unikID, hwID, swID) values("+req.body.onoff+", "+req.body.normielStrom+", "+req.body.aktuelStrom+", "+req.body.lysintensitet+", '"+req.body.farve+"', '"+req.body.unikID+"', '"+req.body.hwID+"', '"+req.body.swID+"');", 
+          con.query("insert into bruger(id, fornavn, efternavn, kontonr, instaende, rente, brugernavn, password) values("+req.body.id+", "+req.body.fornavn+", "+req.body.efternavn+", "+req.body.kontonr+", '"+req.body.indestaende+"', '"+req.body.rente+"', '"+req.body.brugernavn+"', '"+req.body.password+"');", 
           function (err, result) { //Vælg alt fra table "ikeapare"
           if (err) throw err;//Tjekker for fejl, throw errors.
           console.log("selected *"); //Logger alt der er selected.

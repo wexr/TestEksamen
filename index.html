@@ -3,10 +3,10 @@
         <head>
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <title>Hello world</title>
+                <title>BEC Bank</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-                <script src="main.js"></script>
+                
+                
                 <style>
                     table {
                         font-family: arial, sans-serif;
@@ -30,15 +30,15 @@
             <body>
             
                 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-                <button onclick="hentpare()">skrret</button>
+                <button onclick="hentbruger()">KLIK MIG FOR RELOAD</button>
                 <table style="width:100%">
                     <ul id="liste"></ul>
                 </table>
             
                 <script>
-                    hentpare();
+                    hentbruger();
             
-                    function hentpare() {
+                    function hentbruger() {
                         var xmlhttp = new XMLHttpRequest();
              
                         xmlhttp.onreadystatechange = function () {
@@ -48,7 +48,7 @@
                                 //laver det om til object
                                 var obj = JSON.parse(this.response)
                                 
-                                var startappend = "<tr><th>onoff</th><th>normiel strøm</th><th>aktuel strøm</th><th>lysintensitet</th><th>farve</th><th>uniktID</th><th>hardwareID</th><th>softwareID</th></tr> "
+                                var startappend = "<tr><th>id</th><th>fornavn</th><th>efternavn</th><th>kontornr</th><th>indestaende</th><th>rente</th><th>brugernavn</th><th>password</th></tr> "
                                 $('#liste').append($(startappend));
             
                                 for (let index = 0; index < obj.length; index++) {
@@ -65,7 +65,7 @@
             
                                     var slut = '</tr>'
             
-                                    var finallinje = start+onoff+normiel+aktuel+lysintensitet+farve+uniktID+hardwareID+softwareID+slut;
+                                    var finallinje = start+id+fornavn+efternavn+kontonr+indestaende+rente+brugernavn+password+slut;
                                     $('#liste').append($(finallinje));
             
                                 }

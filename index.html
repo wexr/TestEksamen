@@ -5,81 +5,157 @@
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <title>BEC Bank</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+                <script src="main.js"></script>
                 
-                
-                <style>
-                    table {
-                        font-family: arial, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-            
-                    td,
-                    th {
-                        border: 1px solid white;
-                        text-align: left;
-                        padding: 8px;
-                    }
-            
-                    tr:nth-child(even) {
-                        background-color: grey;
-                    }
-                </style>
+                <SCRIPT LANGUAGE="JavaScript">
+                        //<!--
+                        
+                        /*
+                           name - name of the cookie
+                           value - value of the cookie
+                           [expires] - expiration date of the cookie
+                             (defaults to end of current session)
+                           [path] - path for which the cookie is valid
+                             (defaults to path of calling document)
+                           [domain] - domain for which the cookie is valid
+                             (defaults to domain of calling document)
+                           [secure] - Boolean value indicating if the cookie transmission requires
+                             a secure transmission
+                           * an argument defaults when it is assigned null as a placeholder
+                           * a null placeholder is not required for trailing omitted arguments
+                        */
+                        
+                        function setCookie(name, value, expires, path, domain, secure) {
+                          var curCookie = name + "=" + escape(value) +
+                              ((expires) ? "; expires=" + expires.toGMTString() : "") +
+                              ((path) ? "; path=" + path : "") +
+                              ((domain) ? "; domain=" + domain : "") +
+                              ((secure) ? "; secure" : "");
+                          document.cookie = curCookie;
+                        }
+                        
+                        /*
+                          name - name of the desired cookie
+                          return string containing value of specified cookie or null
+                          if cookie does not exist
+                        */
+                        
+                        function getCookie(name) {
+                          var dc = document.cookie;
+                          var prefix = name + "=";
+                          var begin = dc.indexOf("; " + prefix);
+                          if (begin == -1) {
+                            begin = dc.indexOf(prefix);
+                            if (begin != 0) return null;
+                          } else
+                            begin += 2;
+                          var end = document.cookie.indexOf(";", begin);
+                          if (end == -1)
+                            end = dc.length;
+                          return unescape(dc.substring(begin + prefix.length, end));
+                        }
+                        
+                        /*
+                           name - name of the cookie
+                           [path] - path of the cookie (must be same as path used to create cookie)
+                           [domain] - domain of the cookie (must be same as domain used to
+                             create cookie)
+                           path and domain default if assigned null or omitted if no explicit
+                             argument proceeds
+                        */
+                        
+                        function deleteCookie(name, path, domain) {
+                          if (getCookie(name)) {
+                            document.cookie = name + "=" +
+                            ((path) ? "; path=" + path : "") +
+                            ((domain) ? "; domain=" + domain : "") +
+                            "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+                          }
+                        }
+                        // date - any instance of the Date object
+                        // * hand all instances of the Date object to this function for "repairs"
+                        
+                        function fixDate(date) {
+                          var base = new Date(0);
+                          var skew = base.getTime();
+                          if (skew > 0)
+                            date.setTime(date.getTime() - skew);
+                        }
+                        // -->
+                        </SCRIPT>
+
             </head>
             
             <body>
             
-                <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-                <button onclick="hentbruger()">KLIK MIG FOR RELOAD</button>
-                <table style="width:100%">
-                    <ul id="liste"></ul>
-                </table>
-            
-                <script>
-                    hentbruger();
-            
-                    function hentbruger() {
-                        var xmlhttp = new XMLHttpRequest();
-             
-                        xmlhttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                console.log("virket")
-                                console.log("response" + this.response);
-                                //laver det om til object
-                                var obj = JSON.parse(this.response)
-                                
-                                var startappend = "<tr><th>id</th><th>fornavn</th><th>efternavn</th><th>kontornr</th><th>indestaende</th><th>rente</th><th>brugernavn</th><th>password</th></tr> "
-                                $('#liste').append($(startappend));
-            
-                                for (let index = 0; index < obj.length; index++) {
-                                    var start = '<tr>';
-            
-                                    var id = '<td>'+ obj[index].id+' </td>'
-                                    var fornavn = '<td>'+ obj[index].fornavn+' </td>'
-                                    var efternavn = '<td>'+ obj[index].efternavn+' </td>'
-                                    var kontonr = '<td>'+ obj[index].kontonr+' </td>'
-                                    var indestaende = '<td>'+ obj[index].indestaende+' </td>'
-                                    var rente = '<td>'+ obj[index].rente+' </td>'
-                                    var brugernavn = '<td>'+ obj[index].brugernavn+' </td>'
-                                    var password = '<td>'+ obj[index].password+' </td>'
-            
-                                    var slut = '</tr>'
-            
-                                    var finallinje = start+id+fornavn+efternavn+kontonr+indestaende+rente+brugernavn+password+slut;
-                                    $('#liste').append($(finallinje));
-            
-                                }
-            
-            
-            
+                
+
+                <ul>
+                        <li><a class="active" href="index.html">Start</a></li>
+                        <li><a href="becbank.html">BEC Bank</a></li>
+                        <li><a href="konventer.html">Konventer</a></li>
+                        <li><a href="#about">About</a></li>
+                      </ul>
+
+                      
+                      <SCRIPT LANGUAGE="JavaScript">
+                            //<!--
+                            // create an instance of the Date object
+                            var now = new Date();
+                            // fix the bug in Navigator 2.0, Macintosh
+                            fixDate(now);
+                            
+                            /*
+                            cookie expires in one year (actually, 365 days)
+                            365 days in a year
+                            24 hours in a day
+                            60 minutes in an hour
+                            60 seconds in a minute
+                            1000 milliseconds in a second
+                            */
+                            
+                            now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+                            var visits = getCookie("counter");
+                            // if the cookie wasn't found, this is your first visit
+                            if (!visits) {
+                              visits = 1; // the value for the new cookie
+                              document.write("Det er første gang du har besøgt denne side.");
+                            } else {
+                              // increment the counter
+                              visits = parseInt(visits) + 1;
+                              document.write("Du har nu besøgt denne side " + visits + " gange.");
                             }
-                        }
+                            // set the new cookie
+                            setCookie("counter", visits, now);
+                            // -->
+                            </SCRIPT>
+                            
+                            
+
+                
+                
+                      <p>
+                          <pre>
+                    Traditionel mumletekst
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lectus quis sem lacinia nonummy. 
+                    Proin mollis lorem non dolor. In hac habitasse platea dictumst. Nulla ultrices odio. 
+                    Donec augue. Phasellus dui. Maecenas facilisis nisl vitae nibh. 
+                    Proin vel seo est vitae eros pretium dignissim. Aliquam aliquam sodales orci. 
+                    Suspendisse potenti. Nunc adipiscing euismod arcu. Quisque facilisis mattis lacus. 
+                    Fusce bibendum, velit in venenatis viverra, tellus ligula dignissim felis, quis euismod mauris tellus ut urna. 
+                    Proin scelerisque. Nulla in mi. Integer ac leo. 
+                    Nunc urna ligula, gravida a, pretium vitae, bibendum nec, ante. 
+                    Aliquam ullamcorper iaculis lectus. Sed vel dui. Etiam lacinia risus vitae lacus. 
+                    Aliquam elementum imperdiet turpis. In id metus. Mauris eu nisl. 
+                    Nam pharetra nisi nec enim. 
+                    Nulla aliquam, tellus sed laoreet blandit, eros urna vehicula lectus, et vulputate mauris arcu ut arcu. 
+                    Praesent eros metus lirum larum, accumsan a, malesuada et, commodo vel, nulla. 
+                    Aliquam sagittis auctor sapien. Morbi a nibh.
+                            </pre>
+                        </p>
             
-                        xmlhttp.open("GET", "http://localhost:8088/hent", true);
-                        xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                        xmlhttp.send();
-                    }
-                </script>
+                
             </body>
             
             </html>

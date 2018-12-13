@@ -1,0 +1,23 @@
+{
+  "name": "testeksamen",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000T\u0000e\u0000s\u0000t\u0000E\u0000k\u0000s\u0000a\u0000m\u0000e\u0000n\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wexr/TestEksamen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wexr/TestEksamen/issues"
+  },
+  "homepage": "https://github.com/wexr/TestEksamen#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}

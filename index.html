@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <title>Hello world</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+                <script src="main.js"></script>
+                <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+            
+                    td,
+                    th {
+                        border: 1px solid white;
+                        text-align: left;
+                        padding: 8px;
+                    }
+            
+                    tr:nth-child(even) {
+                        background-color: grey;
+                    }
+                </style>
+            </head>
+            
+            <body>
+            
+                <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+                <button onclick="hentpare()">skrret</button>
+                <table style="width:100%">
+                    <ul id="liste"></ul>
+                </table>
+            
+                <script>
+                    hentpare();
+            
+                    function hentpare() {
+                        var xmlhttp = new XMLHttpRequest();
+             
+                        xmlhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                console.log("virket")
+                                console.log("response" + this.response);
+                                //laver det om til object
+                                var obj = JSON.parse(this.response)
+                                
+                                var startappend = "<tr><th>onoff</th><th>normiel strøm</th><th>aktuel strøm</th><th>lysintensitet</th><th>farve</th><th>uniktID</th><th>hardwareID</th><th>softwareID</th></tr> "
+                                $('#liste').append($(startappend));
+            
+                                for (let index = 0; index < obj.length; index++) {
+                                    var start = '<tr>';
+            
+                                    var id = '<td>'+ obj[index].id+' </td>'
+                                    var fornavn = '<td>'+ obj[index].fornavn +' </td>'
+                                    var efternavn = '<td>'+ obj[index].efternavn +' </td>'
+                                    var kontonr = '<td>'+ obj[index].kontonr +' </td>'
+                                    var indestaende = '<td>'+ obj[index].indestaende +' </td>'
+                                    var rente = '<td>'+ obj[index].rente +' </td>'
+                                    var brugernavn = '<td>'+ obj[index].brugernavn +' </td>'
+                                    var password = '<td>'+ obj[index].password +' </td>'
+            
+                                    var slut = '</tr>'
+            
+                                    var finallinje = start+onoff+normiel+aktuel+lysintensitet+farve+uniktID+hardwareID+softwareID+slut;
+                                    $('#liste').append($(finallinje));
+            
+                                }
+            
+            
+            
+                            }
+                        }
+            
+                        xmlhttp.open("GET", "http://localhost:8088/hent", true);
+                        xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xmlhttp.send();
+                    }
+                </script>
+            </body>
+            
+            </html>

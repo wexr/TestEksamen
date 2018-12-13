@@ -28,8 +28,8 @@ var con = mysql.createConnection({
   //6. Get request 2 : Hent pærerne
 app.get('/hent', function(req,res){
     
-    con.connect(function(err) {  
-        if (err) throw err; //Tjekker om der er nogle errors, throw.
+    
+
         console.log("Connected!"); // Logger hvis connected.
         con.query("use becbank;", function (err, result) { //Brug schema fra mysql db.
             if (err) throw err; //Tjekker for fejl, throw errors.
@@ -41,8 +41,6 @@ app.get('/hent', function(req,res){
         res.send(result); //Det er det den sender når man går ind på /hent
         });
       });
-
-})
 
 app.post('/opret', function(req, res){
     con.connect(function(err) {  
